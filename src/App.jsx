@@ -494,8 +494,9 @@ function QuestionCard({ theme, subdimension, selectedLevel, onSelect, onNext, on
                   {text}
                 </p>
                 {example && (
-                  <p style={{ fontSize: 13, lineHeight: 1.5, color: sel ? C.textMuted : C.textFaint, fontStyle: "italic", margin: "6px 0 0" }}>
-                    {example}
+                  <p style={{ fontSize: 13, lineHeight: 1.5, color: sel ? C.textMuted : C.textFaint, margin: "6px 0 0" }}>
+                    <span style={{ fontWeight: 600, fontStyle: "normal" }}>Example: </span>
+                    <span style={{ fontStyle: "italic" }}>{example}</span>
                   </p>
                 )}
               </div>
@@ -603,7 +604,7 @@ function ResultsScreen({ answers, memberName, memberEmail, onRestart }) {
         (i === 0
           ? "<td rowspan=\"" + scores.length + "\" style=\"-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:10px 12px;vertical-align:top;font-weight:700;font-size:11px;color:#fff;background:" + theme.color + ";border-radius:4px;white-space:nowrap;line-height:1.4;\">" +
             (theme.fullName || theme.name) +
-            "<div style=\"font-size:9px;font-weight:500;margin-top:4px;opacity:0.85;\">" + dominant + " &middot; avg " + avg.toFixed(1) + "</div></td>"
+            "<div style=\"font-size:9px;font-weight:500;margin-top:4px;opacity:0.85;\">" + dominant + "</div></td>"
           : "") +
         "<td style=\"padding:9px 14px;font-size:13px;color:#374151;border-bottom:1px solid #F3F4F6;\">" + s.name + "</td>" +
         "<td style=\"-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:9px 14px;text-align:center;border-bottom:1px solid #F3F4F6;\"><span style=\"display:inline-block;padding:3px 10px;border-radius:20px;background:" + theme.color + ";color:#fff;font-size:11px;font-weight:700;\">" + (s.level || "&mdash;") + "</span><div style=\"font-size:10px;color:#9CA3AF;margin-top:2px;\">" + (LEVEL_LABELS[s.level] || "") + "</div></td>" +
@@ -622,14 +623,13 @@ function ResultsScreen({ answers, memberName, memberEmail, onRestart }) {
       ".summary{display:flex;align-items:center;gap:24px;margin:24px 32px 16px;padding:20px;background:#F7F6F5;border-radius:12px;border:1px solid #E5E3E0}" +
       ".summary .lvl{font-size:44px;font-weight:800;color:" + C.accent + ";line-height:1;letter-spacing:-0.02em}" +
       ".summary .lbl{font-size:14px;color:#374151;font-weight:500;margin-top:4px}" +
-      ".summary .avg{font-size:12px;color:#9CA3AF;margin-top:4px}" +
       ".tip{margin:0 32px 16px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400E}" +
       "table{width:calc(100% - 64px);margin:0 32px 28px;border-collapse:collapse;font-size:13px}" +
       ".ftr{background:#F7F6F5;padding:14px 32px;border-top:1px solid #E5E3E0;font-size:11px;color:#9CA3AF}" +
       "@media print{body{background:#fff;padding:0}.wrap{box-shadow:none;border-radius:0}.tip{display:none}}</style>" +
       "</head><body><div class=\"wrap\">" +
       "<div class=\"hdr\"><div class=\"tag\">Career Framework &middot; Marketing</div><h1>" + memberName + "&rsquo;s Self-Assessment Results</h1><div class=\"sub\">Completed " + completedDate + " &middot; Marketing job family</div></div>" +
-      "<div class=\"summary\"><div><div class=\"lvl\">" + overallLevel + "</div><div class=\"lbl\">" + LEVEL_LABELS[overallLevel] + "</div><div class=\"avg\">Overall avg " + overallAvg.toFixed(1) + " / 5</div></div><div style=\"flex:1;font-size:13px;color:#6B7280;line-height:1.65;\">Indicative overall level across all 6 Marketing functional competencies. Use this as a starting point for your development conversation with your manager.</div></div>" +
+      "<div class=\"summary\"><div><div class=\"lvl\">" + overallLevel + "</div><div class=\"lbl\">" + LEVEL_LABELS[overallLevel] + "</div></div><div style=\"flex:1;font-size:13px;color:#6B7280;line-height:1.65;\">Indicative overall level across all 6 Marketing functional competencies. Use this as a starting point for your development conversation with your manager.</div></div>" +
       "<div class=\"tip\">To save as PDF: <strong>File &rarr; Print &rarr; Save as PDF</strong> &middot; Enable <strong>Background graphics</strong> in print settings to keep colours.</div>" +
       "<table><tbody>" + rows + "</tbody></table>" +
       "<div class=\"ftr\">saas.group &middot; Career Framework &middot; Marketing &middot; " + completedDate + " &middot; This is a starting point for your manager conversation, not a final assessment.</div>" +
@@ -646,7 +646,7 @@ function ResultsScreen({ answers, memberName, memberEmail, onRestart }) {
   const buildEmailHtml = () => {
     const themeRows = results.map(({ theme, scores, avg, dominant }) =>
       "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin-bottom:10px;border-radius:10px;overflow:hidden;border:1px solid #E5E3E0;\">" +
-      "<tr><td style=\"background:" + theme.color + ";padding:10px 16px;\"><span style=\"color:#fff;font-weight:700;font-size:13px;\">" + (theme.fullName || theme.name) + "</span><span style=\"color:rgba(255,255,255,0.8);font-size:11px;float:right;padding-top:2px;\">" + dominant + " &middot; avg " + avg.toFixed(1) + "</span></td></tr>" +
+      "<tr><td style=\"background:" + theme.color + ";padding:10px 16px;\"><span style=\"color:#fff;font-weight:700;font-size:13px;\">" + (theme.fullName || theme.name) + "</span><span style=\"color:rgba(255,255,255,0.8);font-size:11px;float:right;padding-top:2px;\">" + dominant + "</span></td></tr>" +
       scores.map(s =>
         "<tr><td style=\"background:#FAFAF9;padding:9px 16px;border-top:1px solid #E5E3E0;\"><span style=\"font-size:13px;color:#374151;\">" + s.name + "</span><span style=\"float:right;font-size:12px;font-weight:700;color:" + theme.color + ";\">" + (s.level || "&mdash;") + " &middot; " + (LEVEL_LABELS[s.level] || "") + "</span></td></tr>"
       ).join("") +
@@ -663,7 +663,7 @@ function ResultsScreen({ answers, memberName, memberEmail, onRestart }) {
       "<tr><td style=\"padding:24px 32px 8px;\"><div style=\"background:#F7F6F5;border-radius:10px;padding:18px 20px;margin-bottom:20px;border:1px solid #E5E3E0;\">" +
       "<div style=\"font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#9CA3AF;margin-bottom:6px;\">Overall indicative level</div>" +
       "<div style=\"font-size:40px;font-weight:800;color:" + C.accent + ";line-height:1;letter-spacing:-0.02em;\">" + overallLevel + "</div>" +
-      "<div style=\"font-size:13px;color:#374151;margin-top:4px;\">" + LEVEL_LABELS[overallLevel] + " &middot; avg " + overallAvg.toFixed(1) + " / 5</div></div>" +
+      "<div style=\"font-size:13px;color:#374151;margin-top:4px;\">" + LEVEL_LABELS[overallLevel] + "</div></div>" +
       themeRows + "</td></tr>" +
       "<tr><td style=\"padding:4px 32px 28px;\"><div style=\"background:" + C.accentTint + ";border-radius:10px;padding:14px 18px;\">" +
       "<div style=\"font-weight:700;color:" + C.accent + ";font-size:13px;margin-bottom:4px;\">Next steps</div>" +
@@ -714,9 +714,6 @@ function ResultsScreen({ answers, memberName, memberEmail, onRestart }) {
               <div style={{ fontSize: 13, color: C.textBody, fontWeight: 500, marginTop: 4 }}>
                 {LEVEL_LABELS[overallLevel]}
               </div>
-              <div style={{ fontSize: 12, color: C.textFaint, marginTop: 4 }}>
-                avg {overallAvg.toFixed(1)} / 5
-              </div>
             </div>
             <div style={{ flex: 1, borderLeft: "1px solid " + C.border, paddingLeft: 20 }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -725,7 +722,6 @@ function ResultsScreen({ answers, memberName, memberEmail, onRestart }) {
                     <span style={{ width: 7, height: 7, borderRadius: "50%", background: theme.color, flexShrink: 0 }} />
                     <span style={{ fontSize: 12.5, color: C.textBody, flex: 1, minWidth: 0 }}>{theme.name}</span>
                     <span style={{ fontSize: 12, fontWeight: 700, color: theme.color }}>{dominant}</span>
-                    <span style={{ fontSize: 11, color: C.textFaint, minWidth: 40, textAlign: "right" }}>avg {avg.toFixed(1)}</span>
                   </div>
                 ))}
               </div>
@@ -783,7 +779,6 @@ function ResultsScreen({ answers, memberName, memberEmail, onRestart }) {
                   <span style={{ color: "#fff", fontWeight: 700, fontSize: 13.5 }}>{theme.fullName}</span>
                   <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                     <span style={{ color: "rgba(255,255,255,0.95)", fontSize: 13, fontWeight: 700 }}>{dominant}</span>
-                    <span style={{ color: "rgba(255,255,255,0.65)", fontSize: 12 }}>avg {avg.toFixed(1)}</span>
                   </div>
                 </div>
                 <div style={{ padding: "12px 16px" }}>
